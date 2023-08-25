@@ -1,5 +1,6 @@
 package com.txxw.sso.config.security;
 
+import com.alibaba.fastjson.JSONObject;
 import com.txxw.sso.utils.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -52,7 +53,16 @@ public class JwtAuthencationTokenFilter extends OncePerRequestFilter {
 							new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 					authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 					SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+				}else{//验证token无效
+					response.setContentType("application/json;charset=utf-8");
+					JSONObject jsonObject = new JSONObject();
+					jsonObject.put("code", 401);
+					jsonObject.put("msg", "token失效");
+					response.getWriter().write(jsonObject.toString());
+                    response.getWriter().flush();
+                    response.getWriter().close();
 				}
+
 			}
 		}
 		filterChain.doFilter(request, response);

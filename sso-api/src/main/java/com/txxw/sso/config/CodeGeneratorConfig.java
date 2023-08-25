@@ -49,7 +49,7 @@ public class CodeGeneratorConfig {
 		// 全局配置
 		GlobalConfig gc = new GlobalConfig();
 		String projectPath = System.getProperty("user.dir");
-		gc.setOutputDir(projectPath + "/hr-api/src/main/java");
+		gc.setOutputDir(projectPath + "/sso-api/src/main/java");
 		//作者
 		gc.setAuthor("Enci");
 		//打开输出目录
@@ -64,7 +64,7 @@ public class CodeGeneratorConfig {
 
 		// 数据源配置
 		DataSourceConfig dsc = new DataSourceConfig();
-		dsc.setUrl("jdbc:mysql://localhost:3306/hr?useUnicode=true&characterEncoding=UTF-8&serverTimeZone=UTC");
+		dsc.setUrl("jdbc:mysql://localhost:3306/sso?useUnicode=true&characterEncoding=UTF-8&serverTimeZone=UTC");
 		dsc.setDriverName("com.mysql.cj.jdbc.Driver");
 		dsc.setUsername("root");
 		dsc.setPassword("123456");
@@ -72,7 +72,7 @@ public class CodeGeneratorConfig {
 
 		// 包配置
 		PackageConfig pc = new PackageConfig();
-		pc.setParent("com.txxw.hr")
+		pc.setParent("com.txxw.sso")
 				.setEntity("dao.pojo")
 				.setMapper("dao.mapper")
 				.setService("service")
@@ -100,7 +100,7 @@ public class CodeGeneratorConfig {
 			@Override
 			public String outputFile(TableInfo tableInfo) {
 				// 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
-				return projectPath + "/hr-api/src/main/resources/com/txxw/hr/dao/mapper" + tableInfo.getEntityName() + "Mapper"
+				return projectPath + "/sso-api/src/main/resources/com/txxw/sso/dao/mapper" + tableInfo.getEntityName() + "Mapper"
 						+ StringPool.DOT_XML;
 			}
 		});

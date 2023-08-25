@@ -1,8 +1,10 @@
 package com.txxw.sso.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.txxw.sso.dao.pojo.Admin;
 import com.txxw.sso.service.IAdminService;
 import com.txxw.sso.service.LoginService;
+import com.txxw.sso.utils.AdminUtils;
 import com.txxw.sso.utils.JwtTokenUtil;
 import com.txxw.sso.vo.ErrorCode;
 import com.txxw.sso.vo.Result;
@@ -21,9 +23,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.Map;
 
-
-import static com.txxw.sso.vo.ErrorCode.ACCOUNT_ENABLE;
-import static com.txxw.sso.vo.ErrorCode.ACCOUNT_PWD_NOT_EXIST;
+import static com.txxw.sso.vo.ErrorCode.*;
 
 /**
  * @authoer:沐羽千茗
@@ -131,7 +131,26 @@ public class LoginServiceImpl implements LoginService {
         //生成token
         String token = jwtTokenUtil.generateToken(admin);
 
+
 //        redisTemplate.opsForValue().set("TOKEN_"+token, JSON.toJSONString(sysUser),1, TimeUnit.DAYS);
         return Result.success(token);
+    }
+
+    @Override
+    public Result checkToken(String token) {
+
+        if (StringUtils.isBlank(token)){
+            return null;
+        }
+        Admin currentAdmin = AdminUtils.getCurrentAdmin();
+        UserDetails userDetails = userDetailsService.loadUserByUsername(currentAdmin.getUsername());
+        //        验证token
+        boolean b = jwtTokenUtil.validateToken(token, userDetails);
+        if (b){
+        //            验证通过
+            return Result.success(currentAdmin);//token解析成功
+        }
+        System.out.println("验证不通过");
+        return Result.fail(TOKEN_ERROR.getCode(), TOKEN_ERROR.getMsg());
     }
 }

@@ -1,5 +1,6 @@
 package com.txxw.sso.service;
 
+import com.txxw.sso.dao.pojo.Admin;
 import com.txxw.sso.vo.Result;
 import com.txxw.sso.vo.params.LoginParam;
 
@@ -28,4 +29,6 @@ public interface LoginService {
      * @return
      */
     Result register(LoginParam loginParam);
+
+    Result checkToken(String token);
 }

@@ -148,6 +148,13 @@
             <version>0.9.1</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.jodd/jodd-http -->
+        <dependency>
+            <groupId>org.jodd</groupId>
+            <artifactId>jodd-http</artifactId>
+            <version>3.6.2</version>
+        </dependency>
+
 
 
     </dependencies>

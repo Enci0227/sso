@@ -77,7 +77,7 @@ public class JwtTokenUtil {
 	 * @param userDetails
 	 * @return
 	 */
-	public boolean validateToken(String token,UserDetails userDetails){
+	public boolean validateToken(String token, UserDetails userDetails){
 		String username = getUserNameFromToken(token);
 		return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
 	}
@@ -164,6 +164,7 @@ public class JwtTokenUtil {
 	 * @return
 	 */
 	private Date generateExpirationDate() {
+		//这里设置了有效期是一周
 		return new Date(System.currentTimeMillis() + expiration * 1000);
 	}
 
