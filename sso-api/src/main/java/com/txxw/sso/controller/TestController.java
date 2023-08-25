@@ -43,6 +43,7 @@ public class TestController {
     @Value("${jwt.tokenHead}")
     private String tokenHead;
 
+    //远程请求测试
     @ApiOperation("远程请求发送")
     @PostMapping(value = "test1", produces = "application/json; charset=UTF-8")
     public Result test(HttpServletRequest request){
